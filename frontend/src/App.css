@@ -1,0 +1,12 @@
+.app-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f2f2f2;
+  min-height: 100vh;
+  padding-top: 60px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
