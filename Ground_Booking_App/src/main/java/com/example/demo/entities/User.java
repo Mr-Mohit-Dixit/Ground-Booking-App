@@ -25,13 +25,13 @@ public class User {
     @Column(name = "uName", nullable = false)
     private String uName;
 
-    @Column(name = "phoneNo", nullable = false, length = 15)
+    @Column(name = "uPhoneNo", nullable = false, length = 15)
     private String uPhoneNo; // Renamed to uPhoneNo for clarity
 
     @Column(name = "aadhar", nullable = false, unique = true, length = 12)
     private String aadhar;
 
-    @Column(name = "address", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "uAddress", nullable = false, columnDefinition = "TEXT")
     private String uAddress; // Renamed to uAddress for clarity
 
     // Assuming a City entity exists for the cId foreign key

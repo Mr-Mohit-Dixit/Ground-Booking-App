@@ -7,8 +7,14 @@ import com.example.demo.entities.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    // You can add custom query methods here if needed, e.as. findByUsername(String username)
+
+	
     User findByUsername(String username);
     User findByEmail(String email);
     User findByAadhar(String aadhar);
+
+    
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
+    boolean existsByAadhar(String aadhar);
 }
