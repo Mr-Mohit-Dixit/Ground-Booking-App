@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../Form.css';
 
 const LoginForm = () => {
@@ -9,6 +10,7 @@ const LoginForm = () => {
   });
 
   const [loginMessage, setLoginMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +25,13 @@ const LoginForm = () => {
       if (response.status === 200) {
         setLoginMessage("Login successful! Welcome " + response.data.uname);
         console.log("User data:", response.data);
-        // You can navigate or store user info in localStorage here
+        if (response.data.role.rid === 1) {
+          navigate("/admin");
+        } else if (response.data.role.rid === 2) {
+          navigate("/ground-owner");
+        } else if (response.data.role.rid === 3) {
+          navigate("/player");
+        }
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
