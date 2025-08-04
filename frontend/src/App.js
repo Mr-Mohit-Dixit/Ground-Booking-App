@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import EditProfile from "./pages/EditProfile";
 import AdminPage from "./pages/AdminPage";
 import GroundOwnerPage from "./pages/GroundOwnerPage";
 import PlayerPage from "./pages/PlayerPage";
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/ground-owner" element={<GroundOwnerPage />} />
         <Route path="/player" element={<PlayerPage />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
     </Router>
   );
