@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../Form.css";
-import { useSelector } from "react-redux";
 import { FaEdit } from "react-icons/fa";
 
 const EditProfile = () => {
@@ -123,7 +122,7 @@ const EditProfile = () => {
           >
             <option value="">-- Select City --</option>
             {cities.map((city) => (
-              <option key={city.cid} value={city.cid}>
+              <option key={city.cid} value={city.cid} selected>
                 {city.cname}
               </option>
             ))}
