@@ -20,9 +20,9 @@ const EditProfile = () => {
 
   const [editableFields, setEditableFields] = useState({});
   const [cities, setCities] = useState([]);
+  let userId = localStorage.getItem("loggeduserid");
 
   useEffect(() => {
-    const userId = 1;
     axios.get(`http://localhost:8080/api/users/${userId}`)
       .then((res) => {
         console.log("User Data:", res.data);
@@ -67,7 +67,6 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userId = formData.uId; // or use the hardcoded ID you're fetching initially
       console.log("Usr ID : "+userId);
       await axios.put(`http://localhost:8080/api/users/update/${userId}`, formData);
       alert("Profile updated successfully!");
@@ -115,7 +114,7 @@ const EditProfile = () => {
 
 
         {/* City Dropdown */}
-        <div className="editable-input">
+        {/* <div className="editable-input">
           <label>City</label><br />
           <select
             name="cId"
@@ -130,7 +129,7 @@ const EditProfile = () => {
             ))}
           </select>
           <FaEdit className="edit-icon" onClick={() => toggleEdit("cId")} /><br /><br />
-        </div>
+        </div> */}
 
         <button type="submit">Save Changes</button>
       </form>
