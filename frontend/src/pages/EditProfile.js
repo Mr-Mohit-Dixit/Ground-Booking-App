@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../Form.css";
+import "../Styles/Form.css";
 import { useSelector } from "react-redux";
 import { FaEdit } from "react-icons/fa";
 

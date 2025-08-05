@@ -7,13 +7,14 @@ import EditProfile from "./pages/EditProfile";
 import AdminPage from "./pages/AdminPage";
 import GroundOwnerPage from "./pages/GroundOwnerPage";
 import PlayerPage from "./pages/PlayerPage";
+import PlayerHome from "./pages/playerHome";
 
 const App = () => {
   const [selectedForm, setSelectedForm] = useState(null);
 
-  return (
-    <Router>
-      <Navbar onFormSelect={setSelectedForm} />
+  // This component will conditionally render the navbar based on the current path
+  const MainContent = () => {
+    return (
       <Routes>
         <Route
           path="/"
@@ -39,6 +40,19 @@ const App = () => {
         <Route path="/ground-owner" element={<GroundOwnerPage />} />
         <Route path="/player" element={<PlayerPage />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/playerHome" element={<PlayerHome />} />
+      </Routes>
+    );
+  };
+
+  return (
+    <Router>
+      <Routes>
+        {/* Render the Navbar and MainContent on the home page */}
+        <Route path="/" element={<><Navbar onFormSelect={setSelectedForm} /><MainContent /></>} />
+
+        {/* For all other routes, only render the MainContent (which contains the page's own navbar) */}
+        <Route path="*" element={<MainContent />} />
       </Routes>
     </Router>
   );

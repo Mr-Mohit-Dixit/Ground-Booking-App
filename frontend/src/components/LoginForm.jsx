@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../Form.css';
+import '../Styles/Form.css';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ const LoginForm = () => {
         } else if (response.data.role.rid === 2) {
           navigate("/ground-owner");
         } else if (response.data.role.rid === 3) {
-          navigate("/player");
+          navigate("/playerHome");
         }
       }
     } catch (error) {

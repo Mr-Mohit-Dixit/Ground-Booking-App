@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,9 +32,11 @@ public class Ground {
 
     @Column(name = "uId")
     private Integer uId;
-
-    @Column(name = "sId")
-    private Integer sId;
+    
+    // Changed from sId to a ManyToOne relationship with Sport entity
+    @ManyToOne
+    @JoinColumn(name = "sId") // This is the foreign key column name
+    private Sport sport;
 
     @Column(name = "gStatus")
     private String gStatus;
@@ -40,16 +44,15 @@ public class Ground {
     @Column(name = "gImages")
     private String gImages;
 
-    // Default constructor
     public Ground() {
     }
 
     // Getters and Setters
-    public int getGId() {
+    public Integer getGId() {
         return gId;
     }
 
-    public void setGId(int gId) {
+    public void setGId(Integer gId) {
         this.gId = gId;
     }
 
@@ -92,13 +95,13 @@ public class Ground {
     public void setUId(Integer uId) {
         this.uId = uId;
     }
-
-    public Integer getSId() {
-        return sId;
+    
+    public Sport getSport() {
+        return sport;
     }
-
-    public void setSId(Integer sId) {
-        this.sId = sId;
+    
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 
     public String getGStatus() {
