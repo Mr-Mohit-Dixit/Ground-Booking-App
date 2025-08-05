@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entities.Ground;
 
 @Repository
-public interface GroundRepository extends JpaRepository<Ground, Long> {
+public interface GroundRepository extends JpaRepository<Ground, Integer> {
 }

@@ -30,7 +30,7 @@ public class GroundController {
     }
 
     @GetMapping("getById/{id}")
-    public ResponseEntity<Ground> getGroundById(@PathVariable Long id) {
+    public ResponseEntity<Ground> getGroundById(@PathVariable Integer id) {
         Optional<Ground> ground = groundService.getGroundById(id);
         return ground.map(ResponseEntity::ok)
                      .orElse(ResponseEntity.notFound().build());

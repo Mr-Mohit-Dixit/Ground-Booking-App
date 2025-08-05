@@ -23,7 +23,7 @@ public class GroundService {
         return groundRepository.findAll();
     }
 
-    public Optional<Ground> getGroundById(Long id) {
+    public Optional<Ground> getGroundById(Integer id) {
         return groundRepository.findById(id);
     }
 }

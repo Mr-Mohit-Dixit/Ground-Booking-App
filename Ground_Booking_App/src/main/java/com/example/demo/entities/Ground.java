@@ -14,7 +14,7 @@ public class Ground {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gId")
-    private int gId;
+    private Integer gId;
 
     @Column(name = "gName")
     private String gName;
