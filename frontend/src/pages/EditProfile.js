@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "../Styles/Form.css";
-import { useSelector } from "react-redux";
+import "../Styles/EditProfile.css";
 import { FaEdit } from "react-icons/fa";
+import DefaultProfileImage from '../assets/default_profile.png';
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({
@@ -15,31 +15,49 @@ const EditProfile = () => {
     uAddress: "",
     rId: { rName: "" },
     cId: { cid: "", cname: "" },
-    photo: ""
+    uImage: ""
   });
 
   const [editableFields, setEditableFields] = useState({});
   const [cities, setCities] = useState([]);
   let userId = localStorage.getItem("loggeduserid");
-
+  const fileInputRef = useRef(null);
+  const inputRefs = useRef({}); // Ref to store references to input elements
+  
   useEffect(() => {
     axios.get(`http://localhost:8080/api/users/${userId}`)
       .then((res) => {
         console.log("User Data:", res.data);
-        setFormData(res.data);
+        const fetchedData = res.data;
+        setFormData(prev => ({
+          ...prev,
+          ...fetchedData,
+          uImage: fetchedData.uImage || DefaultProfileImage,
+          cId: fetchedData.city || { cid: "", cname: "" },
+          rId: fetchedData.role || { rName: "" }
+        }));
       })
       .catch((err) => console.error("Error fetching user data:", err));
 
     axios.get("http://localhost:8080/api/cities/all")
       .then((res) => setCities(res.data))
       .catch((err) => console.error("Error fetching cities:", err));
-  }, []);
+  }, [userId]);
 
   const toggleEdit = (field) => {
-    setEditableFields(prev => ({
-      ...prev,
-      [field]: !prev[field]
-    }));
+    setEditableFields(prev => {
+      const newState = { ...prev, [field]: !prev[field] };
+      // If the field is becoming editable, focus on it
+      if (newState[field]) {
+        // Use a timeout to ensure the input is rendered and ready for focus
+        setTimeout(() => {
+          if (inputRefs.current[field]) {
+            inputRefs.current[field].focus();
+          }
+        }, 0); 
+      }
+      return newState;
+    });
   };
 
   const handleChange = (e) => {
@@ -58,16 +76,20 @@ const EditProfile = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, photo: reader.result }));
+        setFormData(prev => ({ ...prev, uImage: reader.result }));
       };
       reader.readAsDataURL(file);
     }
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Usr ID : "+userId);
+      console.log("User ID : " + userId);
       await axios.put(`http://localhost:8080/api/users/update/${userId}`, formData);
       alert("Profile updated successfully!");
     } catch (err) {
@@ -81,12 +103,29 @@ const EditProfile = () => {
       <h2>Edit Profile</h2>
       <form onSubmit={handleSubmit}>
 
-        {/* Profile Picture Upload */}
-        <div className="profile-pic-section">
-          {formData.photo && <img src={formData.photo} alt="Profile" width="100" />}
-          <label>Upload Profile Picture</label><br />
-          <input type="file" accept="image/*" onChange={handlePhotoChange} />
+        {/* Profile Picture Upload Section */}
+        <div className="profile-edit-pic-section">
+          <div className="profile-pic-wrapper" onClick={handleImageClick}>
+            <img 
+              src={formData.uImage} 
+              alt="Profile" 
+              className="profile-picture-edit" 
+              onError={(e) => { e.target.onerror = null; e.target.src = DefaultProfileImage; }}
+            />
+             <div className="edit-photo-icon-overlay" onClick={handleImageClick}>
+            <FaEdit />
+          </div>
+          </div>
+         
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handlePhotoChange} 
+            style={{ display: 'none' }} 
+            accept="image/*" 
+          />
         </div>
+        <br/><br/>
 
         {/* Input Fields with Labels and Spacing */}
         {[
@@ -107,19 +146,21 @@ const EditProfile = () => {
               onChange={handleChange}
               readOnly={!editableFields[name]}
               placeholder={label}
+              ref={el => inputRefs.current[name] = el} // Assign ref to input
             />
             <FaEdit className="edit-icon" onClick={() => toggleEdit(name)} /><br /><br />
           </div>
         ))}
 
-
         {/* City Dropdown */}
-        {/* <div className="editable-input">
+        <div className="editable-input">
           <label>City</label><br />
           <select
             name="cId"
             value={formData.cId?.cid || ""}
             onChange={handleChange}
+            disabled={!editableFields.cId} // Changed from readOnly to disabled
+            ref={el => inputRefs.current.cId = el} // Assign ref to select
           >
             <option value="">-- Select City --</option>
             {cities.map((city) => (
@@ -129,7 +170,7 @@ const EditProfile = () => {
             ))}
           </select>
           <FaEdit className="edit-icon" onClick={() => toggleEdit("cId")} /><br /><br />
-        </div> */}
+        </div>
 
         <button type="submit">Save Changes</button>
       </form>

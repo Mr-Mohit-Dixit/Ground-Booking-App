@@ -1,0 +1,92 @@
+/* Reusing player-navbar styles for consistency across player pages */
+.player-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #2c3e50; /* Dark blue-gray */
+  color: #ecf0f1; /* Light gray */
+}
+
+.player-navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.player-navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.player-nav-link {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.player-nav-link:hover {
+  color: #3498db; /* Light blue */
+}
+
+/* Styles for the My Bookings content container */
+.myBookings-container { /* Updated class name */
+  padding: 2rem;
+  max-width: 1000px; /* Limit width for better readability on large screens */
+  margin: 2rem auto; /* Center the container */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.myBookings-container h2 { /* Updated class name */
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #34495e; /* Dark blue */
+}
+
+/* Styles for messages (loading, error, no bookings) */
+.loading-message, .error-message, .no-bookings-message {
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 20px;
+}
+
+.error-message {
+  color: #c0392b; /* Red for errors */
+}
+
+.no-bookings-message {
+  color: #7f8c8d; /* Gray for no bookings message */
+}
+
+/* Styles for the table container to enable horizontal scrolling */
+.bookings-table-container {
+  overflow-x: auto; /* Allows horizontal scrolling on small screens if table content overflows */
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Collapse borders between cells */
+  margin-top: 1rem;
+}
+
+table thead tr {
+  background-color: #3498db; /* Blue header background */
+  color: white;
+  text-align: left;
+}
+
+table th, table td {
+  padding: 12px 15px; /* Padding inside cells */
+  border: 1px solid #ddd; /* Light gray border for cells */
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Zebra striping for rows */
+}
+
+table tbody tr:hover {
+  background-color: #e0f2f7; /* Light blue on row hover */
+}

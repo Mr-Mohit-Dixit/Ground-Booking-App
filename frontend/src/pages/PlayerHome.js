@@ -36,7 +36,7 @@ const PlayerHome = () => {
           <div className="player-navbar-brand">Ground Booking App</div>
           <div className="player-navbar-links">
             <Link to="/playerHome" className="player-nav-link">Home</Link>
-            <Link to="/my-bookings" className="player-nav-link">My Bookings</Link>
+            <Link to="/myBookings" className="player-nav-link">My Bookings</Link>
             <Link to="/profile" className="player-nav-link">Profile</Link>
           </div>
         </nav>
@@ -54,7 +54,7 @@ const PlayerHome = () => {
         <div className="player-navbar-brand">Ground Booking App</div>
         <div className="player-navbar-links">
           <Link to="/playerHome" className="player-nav-link">Home</Link>
-          <Link to="/my-bookings" className="player-nav-link">My Bookings</Link>
+          <Link to="/myBookings" className="player-nav-link">My Bookings</Link>
           <Link to="/profile" className="player-nav-link">Profile</Link>
         </div>
       </nav>

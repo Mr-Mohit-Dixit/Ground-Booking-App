@@ -1,0 +1,166 @@
+/* General form container styles (moved from Form.css) */
+.form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 2rem;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-container button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #dc3545; /* Red for error messages */
+}
+
+
+/* Styles for Profile Edit Page specific elements */
+
+.profile-edit-pic-section {
+  margin-bottom: 2rem;
+  /* Removed position: relative; here */
+  display: inline-block; /* To center the wrapper and the icon together */
+  align-self: center;
+}
+
+.profile-pic-wrapper {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden; /* Keep this to make the image circular */
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; /* Indicates it's clickable */
+  border: 3px solid #3498db; /* Blue border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: relative; /* THIS IS THE KEY CHANGE: Make this the positioning context */
+}
+
+.profile-picture-edit { /* Specific class for image in edit profile */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-photo-icon-overlay {
+  position: absolute;
+  /* Position relative to .profile-pic-wrapper */
+  bottom: 20%; 
+  right: 30%; 
+  /* Adjust transform to move it half its size out from the bottom-right corner */
+  transform: translate(50%, 50%); 
+  background-color: #3498db; 
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer; /* Indicates it's clickable */
+  transition: background-color 0.3s ease;
+  z-index: 10; /* Ensure it's above the image */
+}
+
+.edit-photo-icon-overlay:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Styles for individual editable input fields */
+.editable-input {
+  margin-bottom: 1rem; /* Spacing between input groups */
+  text-align: left; /* Align labels and inputs */
+  position: relative; /* For positioning the edit icon */
+}
+
+.editable-input label {
+  display: block; /* Make label appear on its own line */
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+.editable-input input,
+.editable-input select {
+  width: calc(100% - 40px); /* Adjust width for icon */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding in width */
+  font-size: 1rem;
+}
+
+.editable-input input[readOnly] {
+  background-color: #f0f0f0;
+  cursor: default;
+}
+
+.editable-input select[disabled] { /* Style for disabled select */
+  background-color: #f0f0f0;
+  cursor: default;
+  opacity: 0.7; /* Make it look disabled */
+}
+
+
+.editable-input .edit-icon {
+  position: absolute;
+  right: 5px; /* Position to the right of the input */
+  top: 55%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #3498db;
+  font-size: 1.2rem;
+  padding: 5px; /* Make it easier to click */
+  background-color: transparent; /* Ensure no background */
+  border-radius: 50%; /* Make it circular */
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.editable-input .edit-icon:hover {
+  color: #2980b9;
+  background-color: #e0f2f7; /* Light background on hover */
+}
