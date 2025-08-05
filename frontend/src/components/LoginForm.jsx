@@ -21,9 +21,12 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post('http://localhost:8080/api/auth/login', formData);
-
+      console.log(response.data);
+      console.log(response.data.uid);
       if (response.status === 200) {
+        console.log("Looged in");
         setLoginMessage("Login successful! Welcome " + response.data.uname);
+        localStorage.setItem("loggeduserid",response.data.uid);
         console.log("User data:", response.data);
         if (response.data.role.rid === 1) {
           navigate("/admin");
