@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
-    // Corrected method name: use underscore to traverse the 'user' property
-    // and then access its 'uId' property.
+    // Corrected method name to find bookings by user ID
     List<Booking> findByUser_uId(Integer uId);
+
+//    List<Booking> findByGround_uId(Integer uId);
 }

@@ -26,4 +26,16 @@ public class GroundService {
     public Optional<Ground> getGroundById(Integer id) {
         return groundRepository.findById(id);
     }
+    
+    public List<Ground> getGroundsByOwnerId(Integer ownerId) {
+    	return groundRepository.findByuId(ownerId);
+    }
+    
+    public void deleteGround(Integer id) {
+    	groundRepository.deleteById(id);
+    }
+    
+    public Ground saveGround(Ground ground) {
+        return groundRepository.save(ground);
+    }
 }

@@ -74,4 +74,10 @@ public class BookingController {
     public List<Booking> getBookingsByUserId(@PathVariable Integer userId) {
         return bookingService.getBookingsByUserId(userId);
     }
+  
+    @GetMapping("/owner/{ownerId}")
+    public List<Booking> getBookingsByGroundOwnerId(@PathVariable Integer ownerId) {
+        return bookingService.getBookingsByGroundOwnerId(ownerId);
+    }
+    
 }

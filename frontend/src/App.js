@@ -9,7 +9,12 @@ import GroundOwnerPage from "./pages/GroundOwnerPage";
 import PlayerPage from "./pages/PlayerPage";
 import PlayerHome from "./pages/PlayerHome";
 import MyBookings from "./pages/MyBookings";
-import PlayerProfile from "./pages/PlayerProfile"; // Import the new Profile component
+import PlayerProfile from "./pages/PlayerProfile"; 
+import OwnerHome from "./pages/OwnerHome"; 
+import OwnerBookings from "./pages/OwnerBookings";
+import EditProfileOwner from "./pages/EditProfileOwner";
+import AddGround from "./pages/AddGround";
+
 
 const App = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -43,7 +48,12 @@ const App = () => {
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/playerHome" element={<PlayerHome />} />
         <Route path="/myBookings" element={<MyBookings />} />
-        <Route path="/profile" element={<PlayerProfile />} /> {/* New route for Profile */}
+        <Route path="/profile" element={<PlayerProfile />} /> 
+        <Route path="/OwnerHome" element={<OwnerHome />} /> 
+        <Route path="/ownerBookings" element={<OwnerBookings />} /> 
+        <Route path="/ownerProfile" element={<EditProfileOwner />} /> 
+        <Route path="/addGround" element={<AddGround />} /> 
+        
       </Routes>
     );
   };

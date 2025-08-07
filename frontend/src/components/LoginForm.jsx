@@ -31,7 +31,8 @@ const LoginForm = () => {
         if (response.data.role.rid === 1) {
           navigate("/admin");
         } else if (response.data.role.rid === 2) {
-          navigate("/ground-owner");
+          navigate("/OwnerHome");
+
         } else if (response.data.role.rid === 3) {
           navigate("/playerHome");
         }

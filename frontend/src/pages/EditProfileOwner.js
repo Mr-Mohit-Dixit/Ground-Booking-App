@@ -3,7 +3,7 @@ import axios from "axios";
 import "../Styles/EditProfile.css";
 import { FaEdit } from "react-icons/fa";
 import DefaultProfileImage from '../assets/default_profile.png';
-import PlayerNavbar from "../components/PlayerNavbar"; // Import the PlayerNavbar component
+import OwnerNavbar from "../components/OwnerNavbar"; // Import the PlayerNavbar component
 
 const EditProfile = () => {
  const [formData, setFormData] = useState({
@@ -101,7 +101,7 @@ const EditProfile = () => {
 
  return (
   <>
-   <PlayerNavbar /> {/* Place the navbar here */}
+   <OwnerNavbar /> {/* Place the navbar here */}
    <div className="form-container">
     <h2>Edit Profile</h2>
     <form onSubmit={handleSubmit}>
