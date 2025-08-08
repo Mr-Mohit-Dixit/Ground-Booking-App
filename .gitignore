@@ -138,3 +138,7 @@
 /.vs/slnx.sqlite
 /.vs/slnx.sqlite-journal
 /.vs/VSWorkspaceState.json
+/.vs/MyProject/v17/DocumentLayout.backup.json
+/GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Debug/net8.0/EndpointInfo/GroundBooking.AdminAPI.json
+/GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Debug/net8.0/ApiEndpoints.json
+/GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/project.assets.json

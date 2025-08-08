@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../components/AdminNavbar.css"; // same as Navbar.css style but for admin
 
 const AdminNavbar = () => {
@@ -7,7 +7,7 @@ const AdminNavbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/admin/login");
+    navigate("/");
   };
 
   return (
@@ -16,6 +16,7 @@ const AdminNavbar = () => {
       <div className="navbar-links">
         <button onClick={handleLogout}>Logout</button>
       </div>
+      
     </nav>
   );
 };

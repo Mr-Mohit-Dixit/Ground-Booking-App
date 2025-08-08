@@ -15,7 +15,7 @@ namespace GroundBooking.AdminAPI.Services
             _context = context;
         }
 
-        
+
         public async Task<bool> ApproveGroundAsync(int groundId)
         {
             var ground = await _context.Ground.FindAsync(groundId);
@@ -63,7 +63,7 @@ namespace GroundBooking.AdminAPI.Services
         {
             return await _context.Users
                 //.Include(g=>g.RIdNavigation)
-                .Where(g => g.RId == 2).ToListAsync();             
+                .Where(g => g.RId == 2).ToListAsync();
         }
 
         public async Task<IEnumerable<GroundDto>> GetAllGroundsAsync()
@@ -90,7 +90,7 @@ namespace GroundBooking.AdminAPI.Services
         }
 
         public async Task<IEnumerable<BookingDto>> GetAllBookingsAsync()
-{
+        {
             var bookings = await _context.Booking
         .Include(b => b.UIdNavigation)
         .Include(b => b.GIdNavigation)
@@ -112,10 +112,51 @@ namespace GroundBooking.AdminAPI.Services
         .ToListAsync();
 
             return bookings;
-}
-    }
+        }
 
-    
+
+        public async Task<bool> ApproveRequestAsync(int rqId)
+        {
+            var request = await _context.Request.FindAsync(rqId);
+            if (request == null) return false;
+
+            request.RqStatus = "Approved";
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RejectRequestAsync(int rqId)
+        {
+            var request = await _context.Request.FindAsync(rqId);
+            if (request == null) return false;
+
+            request.RqStatus = "Denied";
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<RequestDto>> GetPendingRequestsAsync()
+        {
+            var pendingRequests = await _context.Request
+                .Where(r => r.RqStatus == "Pending")
+                .Include(r => r.GIdNavigation)           // to get Ground details
+                    .ThenInclude(g => g.SIdNavigation)  // to get Sport details from Ground
+                .Include(r => r.UIdNavigation)             // to get User details
+                .Select(r => new RequestDto
+                {
+                    RqId = r.RqId,
+                    GroundName = r.GIdNavigation.GName,
+                    SportName = r.GIdNavigation.SIdNavigation.SName,
+                    UserName = r.UIdNavigation.UName,
+                    RequestDateTime = r.RqDateTime,
+                    Status = r.RqStatus
+                })
+                .ToListAsync();
+
+            return pendingRequests;
+        }
+
+    }
 }
 
 

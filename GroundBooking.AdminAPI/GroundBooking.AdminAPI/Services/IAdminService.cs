@@ -11,5 +11,8 @@ namespace GroundBooking.AdminAPI.Services
         Task<List<Users>> GetAllGroundOwners();
         Task<IEnumerable<BookingDto>> GetAllBookingsAsync();
         Task<IEnumerable<GroundDto>> GetAllGroundsAsync();
+        Task<bool> ApproveRequestAsync(int rqId);
+        Task<bool> RejectRequestAsync(int rqId);
+        Task<IEnumerable<RequestDto>> GetPendingRequestsAsync();
     }
 }
