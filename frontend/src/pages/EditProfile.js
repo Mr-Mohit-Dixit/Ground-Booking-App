@@ -3,6 +3,7 @@ import axios from "axios";
 import "../Styles/EditProfile.css";
 import { FaEdit } from "react-icons/fa";
 import DefaultProfileImage from '../assets/default_profile.png';
+import PlayerNavbar from '../components/PlayerNavbar'; // Import the PlayerNavbar component
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({
@@ -99,82 +100,85 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Edit Profile</h2>
-      <form onSubmit={handleSubmit}>
+    <>
+      <PlayerNavbar /> {/* The new Navbar component is added here */}
+      <div className="form-container">
+        <h2>Edit Profile</h2>
+        <form onSubmit={handleSubmit}>
 
-        {/* Profile Picture Upload Section */}
-        <div className="profile-edit-pic-section">
-          <div className="profile-pic-wrapper" onClick={handleImageClick}>
-            <img 
-              src={formData.uImage} 
-              alt="Profile" 
-              className="profile-picture-edit" 
-              onError={(e) => { e.target.onerror = null; e.target.src = DefaultProfileImage; }}
+          {/* Profile Picture Upload Section */}
+          <div className="profile-edit-pic-section">
+            <div className="profile-pic-wrapper" onClick={handleImageClick}>
+              <img 
+                src={formData.uImage} 
+                alt="Profile" 
+                className="profile-picture-edit" 
+                onError={(e) => { e.target.onerror = null; e.target.src = DefaultProfileImage; }}
+              />
+              <div className="edit-photo-icon-overlay" onClick={handleImageClick}>
+                <FaEdit />
+              </div>
+            </div>
+            
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              onChange={handlePhotoChange} 
+              style={{ display: 'none' }} 
+              accept="image/*" 
             />
-             <div className="edit-photo-icon-overlay" onClick={handleImageClick}>
-            <FaEdit />
           </div>
-          </div>
-         
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            onChange={handlePhotoChange} 
-            style={{ display: 'none' }} 
-            accept="image/*" 
-          />
-        </div>
-        <br/><br/>
+          <br/><br/>
 
-        {/* Input Fields with Labels and Spacing */}
-        {[
-          { label: "Full Name", name: "uname" },
-          { label: "Username", name: "username" },
-          { label: "Email", name: "email" },
-          { label: "Password", name: "passwords", type: "password" },
-          { label: "Aadhar Number", name: "aadhar" },
-          { label: "Phone Number", name: "uphoneNo" },
-          { label: "Address", name: "uaddress" }
-        ].map(({ label, name, type = "text" }) => (
-          <div key={name} className="editable-input">
-            <label>{label}</label><br />
-            <input
-              type={type}
-              name={name}
-              value={formData[name] || ""}
+          {/* Input Fields with Labels and Spacing */}
+          {[
+            { label: "Full Name", name: "uname" },
+            { label: "Username", name: "username" },
+            { label: "Email", name: "email" },
+            { label: "Password", name: "passwords", type: "password" },
+            { label: "Aadhar Number", name: "aadhar" },
+            { label: "Phone Number", name: "uphoneNo" },
+            { label: "Address", name: "uaddress" }
+          ].map(({ label, name, type = "text" }) => (
+            <div key={name} className="editable-input">
+              <label>{label}</label><br />
+              <input
+                type={type}
+                name={name}
+                value={formData[name] || ""}
+                onChange={handleChange}
+                readOnly={!editableFields[name]}
+                placeholder={label}
+                ref={el => inputRefs.current[name] = el} // Assign ref to input
+              />
+              <FaEdit className="edit-icon" onClick={() => toggleEdit(name)} /><br /><br />
+            </div>
+          ))}
+
+          {/* City Dropdown */}
+          <div className="editable-input">
+            <label>City</label><br />
+            <select
+              name="cId"
+              value={formData.cId?.cid || ""}
               onChange={handleChange}
-              readOnly={!editableFields[name]}
-              placeholder={label}
-              ref={el => inputRefs.current[name] = el} // Assign ref to input
-            />
-            <FaEdit className="edit-icon" onClick={() => toggleEdit(name)} /><br /><br />
+              disabled={!editableFields.cId} // Changed from readOnly to disabled
+              ref={el => inputRefs.current.cId = el} // Assign ref to select
+            >
+              <option value="">-- Select City --</option>
+              {cities.map((city) => (
+                <option key={city.cid} value={city.cid}>
+                  {city.cname}
+                </option>
+              ))}
+            </select>
+            <FaEdit className="edit-icon" onClick={() => toggleEdit("cId")} /><br /><br />
           </div>
-        ))}
 
-        {/* City Dropdown */}
-        <div className="editable-input">
-          <label>City</label><br />
-          <select
-            name="cId"
-            value={formData.cId?.cid || ""}
-            onChange={handleChange}
-            disabled={!editableFields.cId} // Changed from readOnly to disabled
-            ref={el => inputRefs.current.cId = el} // Assign ref to select
-          >
-            <option value="">-- Select City --</option>
-            {cities.map((city) => (
-              <option key={city.cid} value={city.cid}>
-                {city.cname}
-              </option>
-            ))}
-          </select>
-          <FaEdit className="edit-icon" onClick={() => toggleEdit("cId")} /><br /><br />
-        </div>
-
-        <button type="submit">Save Changes</button>
-      </form>
-    </div>
+          <button type="submit">Save Changes</button>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react'; // Removed useRef
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../Styles/PlayerProfile.css'; // Corrected CSS file import
-import DefaultProfileImage from '../assets/default_profile.png'; // Make sure you have this image in src/assets
-// Removed FaCamera import as it's no longer used
-// import { FaCamera } from 'react-icons/fa'; 
+import DefaultProfileImage from '../assets/default_profile.png';
+import PlayerNavbar from '../components/PlayerNavbar'; // Import the PlayerNavbar component
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [profileImage, setProfileImage] = useState(DefaultProfileImage); // State for displaying profile image
-  // Removed fileInputRef and its useRef
+  const [profileImage, setProfileImage] = useState(DefaultProfileImage);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,8 +31,6 @@ const Profile = () => {
         const fetchedUser = response.data;
         setUserData(fetchedUser);
 
-        // Set profile image from fetched data or use default
-        // Assuming your User entity has a 'uImage' field for the profile picture URL
         if (fetchedUser.uImage) {
           setProfileImage(fetchedUser.uImage);
         } else {
@@ -52,20 +48,10 @@ const Profile = () => {
     fetchUserProfile();
   }, []); // Empty dependency array means this runs once on component mount
 
-  // Removed handleImageChange and handleImageClick functions
-
   if (loading || error) {
     return (
       <>
-        {/* Integrated Navbar */}
-        <nav className="player-navbar">
-          <div className="player-navbar-brand">Ground Booking App</div>
-          <div className="player-navbar-links">
-            <Link to="/playerHome" className="player-nav-link">Home</Link>
-            <Link to="/myBookings" className="player-nav-link">My Bookings</Link>
-            <Link to="/profile" className="player-nav-link">Profile</Link>
-          </div>
-        </nav>
+        <PlayerNavbar /> {/* Used the new Navbar component */}
         <div className="profile-container">
           {loading && <div className="loading-message">Loading profile...</div>}
           {error && <div className="error-message">{error}</div>}
@@ -76,21 +62,11 @@ const Profile = () => {
 
   return (
     <>
-      {/* Integrated Navbar */}
-      <nav className="player-navbar">
-        <div className="player-navbar-brand">Ground Booking App</div>
-        <div className="player-navbar-links">
-          <Link to="/playerHome" className="player-nav-link">Home</Link>
-          <Link to="/myBookings" className="player-nav-link">My Bookings</Link>
-          <Link to="/profile" className="player-nav-link">Profile</Link>
-        </div>
-      </nav>
-
+      <PlayerNavbar /> {/* Used the new Navbar component */}
       <div className="profile-container">
         <h2>My Profile</h2>
         
         <div className="profile-image-section">
-          {/* Removed onClick={handleImageClick} from profile-image-wrapper */}
           <div className="profile-image-wrapper"> 
             <img 
               src={profileImage} 
@@ -99,7 +75,6 @@ const Profile = () => {
               onError={(e) => { e.target.onerror = null; e.target.src = DefaultProfileImage; }}
             />
           </div>
-          {/* Removed camera-icon-overlay and input type="file" */}
         </div>
 
         <div className="profile-details">
@@ -122,12 +97,9 @@ const Profile = () => {
             <strong>Address:</strong> <span>{userData.uaddress}</span>
           </div>
           <div className="detail-item">
-            {/* Assuming nested city object with cname */}
             <strong>City:</strong> <span>{userData.city ? userData.city.cname : 'N/A'}</span>
           </div>
-          {/* Do NOT display passwords */}
         </div>
-        {/* Added Edit Profile button */}
         <button className="edit-profile-button" onClick={() => navigate('/edit-profile')}>Edit Profile</button>
       </div>
     </>

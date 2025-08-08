@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../Styles/Form.css";
 
 const RegisterForm = () => {
@@ -17,6 +18,8 @@ const RegisterForm = () => {
 
   const [roles, setRoles] = useState([]);
   const [cities, setCities] = useState([]);
+  const [message, setMessage] = useState(""); // State for displaying messages
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/roles/all")
@@ -49,21 +52,19 @@ const RegisterForm = () => {
 
     try {
       const res = await axios.post("http://localhost:8080/api/auth/register", payload);
-      alert(res.data); // Show backend message like "User registered successfully."
-      setFormData({
-        uName: "",
-        username: "",
-        email: "",
-        passwords: "",
-        aadhar: "",
-        uPhoneNo: "",
-        uAddress: "",
-        rId: "",
-        cId: "",
-      });
+      setMessage("Registration successful! Redirecting to login page...");
+      console.log(res.data);
+      // Redirect to the home page after a short delay to show the message
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } catch (err) {
       console.error("Registration error:", err);
-      alert("Registration failed. Please check all inputs or try again later.");
+      if (err.response && err.response.data) {
+        setMessage(`Registration failed: ${err.response.data}`);
+      } else {
+        setMessage("Registration failed. Please check your inputs or try again later.");
+      }
     }
   };
 
@@ -86,7 +87,6 @@ const RegisterForm = () => {
           ))}
         </select>
 
-
         <select name="cId" value={formData.cId} onChange={handleChange} required>
           <option value="">-- Select City --</option>
           {cities.map((city) => (
@@ -96,6 +96,8 @@ const RegisterForm = () => {
 
         <button type="submit">Register</button>
       </form>
+      {/* Display message based on registration attempt */}
+      {message && <p className="message">{message}</p>}
     </div>
   );
 };
