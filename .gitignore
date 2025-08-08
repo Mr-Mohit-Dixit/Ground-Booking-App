@@ -128,3 +128,4 @@
 /GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Debug/net8.0/staticwebassets.build.endpoints.json
 /GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Debug/net8.0/staticwebassets.build.json
 /GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/project.nuget.cache
+*.v2
