@@ -1,20 +1,113 @@
+// import React, { useState } from "react";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import Navbar from "./components/Navbar";
+// import LoginForm from "./components/LoginForm";
+// import RegisterForm from "./components/RegisterForm";
+// import EditProfile from "./pages/EditProfile";
+// import AdminPage from "./pages/Admin/AdminPage";
+// import GroundOwnerPage from "./pages/GroundOwnerPage";
+// import PlayerPage from "./pages/PlayerPage";
+// import PlayerHome from "./pages/PlayerHome";
+// import MyBookings from "./pages/MyBookings";
+// import PlayerProfile from "./pages/PlayerProfile";
+// import OwnerHome from "./pages/OwnerHome";
+// import OwnerBookings from "./pages/OwnerBookings";
+// import EditProfileOwner from "./pages/EditProfileOwner";
+// import AddGround from "./pages/AddGround";
+
+// const App = () => {
+//   const [selectedForm, setSelectedForm] = useState(null);
+
+//   const MainContent = () => {
+//     return (
+//       <Routes>
+//         <Route
+//           path="/"
+//           element={
+//             !selectedForm ? (
+//               <div
+//                 style={{
+//                   textAlign: "center",
+//                   marginTop: "50px",
+//                   color: "#555",
+//                 }}
+//               >
+//                 <p>Please choose an option above to continue.</p>
+//               </div>
+//             ) : selectedForm === "login" ? (
+//               <LoginForm />
+//             ) : (
+//               <RegisterForm />
+//             )
+//           }
+//         />
+//         <Route path="/admin" element={<AdminPage />} />
+//         <Route path="/ground-owner" element={<GroundOwnerPage />} />
+//         <Route path="/player" element={<PlayerPage />} />
+//         <Route path="/edit-profile" element={<EditProfile />} />
+//         <Route path="/playerHome" element={<PlayerHome />} />
+//         <Route path="/myBookings" element={<MyBookings />} />
+//         <Route path="/profile" element={<PlayerProfile />} />
+//         <Route path="/OwnerHome" element={<OwnerHome />} />
+//         <Route path="/ownerBookings" element={<OwnerBookings />} />
+//         <Route path="/ownerProfile" element={<EditProfileOwner />} />
+//         <Route path="/addGround" element={<AddGround />} />
+//       </Routes>
+//     );
+//   };
+
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route
+//           path="/"
+//           element={
+//             <>
+//               <Navbar onFormSelect={setSelectedForm} />
+//               <MainContent />
+//             </>
+//           }
+//         />
+//         <Route path="*" element={<MainContent />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
+// Common components
 import Navbar from "./components/Navbar";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+
+// Player / Owner pages
 import EditProfile from "./pages/EditProfile";
-import AdminPage from "./pages/AdminPage";
 import GroundOwnerPage from "./pages/GroundOwnerPage";
 import PlayerPage from "./pages/PlayerPage";
 import PlayerHome from "./pages/PlayerHome";
 import MyBookings from "./pages/MyBookings";
-import PlayerProfile from "./pages/PlayerProfile"; 
-import OwnerHome from "./pages/OwnerHome"; 
+import PlayerProfile from "./pages/PlayerProfile";
+import OwnerHome from "./pages/OwnerHome";
 import OwnerBookings from "./pages/OwnerBookings";
 import EditProfileOwner from "./pages/EditProfileOwner";
 import AddGround from "./pages/AddGround";
 
+// Admin module pages
+import AdminPage from "./pages/Admin/AdminPage";
+import Dashboard from "./pages/Admin/Dashboard";
+import ViewUsers from "./pages/Admin/ViewUsers";
+import ViewGrounds from "./pages/Admin/ViewGrounds";
+import Reports from "./pages/Admin/Reports";
+import ViewBooking from "./pages/Admin/ViewBooking";
 
 const App = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -42,18 +135,27 @@ const App = () => {
             )
           }
         />
-        <Route path="/admin" element={<AdminPage />} />
+
+        {/* Ground Owner */}
         <Route path="/ground-owner" element={<GroundOwnerPage />} />
+
+        {/* Player */}
         <Route path="/player" element={<PlayerPage />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/playerHome" element={<PlayerHome />} />
         <Route path="/myBookings" element={<MyBookings />} />
-        <Route path="/profile" element={<PlayerProfile />} /> 
-        <Route path="/OwnerHome" element={<OwnerHome />} /> 
-        <Route path="/ownerBookings" element={<OwnerBookings />} /> 
-        <Route path="/ownerProfile" element={<EditProfileOwner />} /> 
-        <Route path="/addGround" element={<AddGround />} /> 
-        
+        <Route path="/profile" element={<PlayerProfile />} />
+
+        {/* Owner Pages */}
+        <Route path="/OwnerHome" element={<OwnerHome />} />
+        <Route path="/ownerBookings" element={<OwnerBookings />} />
+        <Route path="/ownerProfile" element={<EditProfileOwner />} />
+        <Route path="/addGround" element={<AddGround />} />
+
+        {/* Edit profile common */}
+        <Route path="/edit-profile" element={<EditProfile />} />
+
+        {/* Redirect for unknown paths */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     );
   };
@@ -61,8 +163,27 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<><Navbar onFormSelect={setSelectedForm} /><MainContent /></>} />
-        <Route path="*" element={<MainContent />} />
+        {/* Public Pages */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar onFormSelect={setSelectedForm} />
+              <MainContent />
+            </>
+          }
+        />
+
+        {/* Admin Module (nested routing) */}
+        <Route path="/admin" element={<AdminPage />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="users" element={<ViewUsers />} />
+          <Route path="grounds" element={<ViewGrounds />} />
+          <Route path="bookings" element={<ViewBooking />} />
+          <Route path="reports" element={<Reports />} />
+          {/* Redirect default /admin to /admin/dashboard */}
+          <Route index element={<Navigate to="dashboard" replace />} />
+        </Route>
       </Routes>
     </Router>
   );
