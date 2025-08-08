@@ -1,13 +1,6 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "ground")
@@ -27,15 +20,16 @@ public class Ground {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "cId")
-    private Integer cId;
-
-    @Column(name = "uId")
-    private Integer uId;
-    
-    // Changed from sId to a ManyToOne relationship with Sport entity
     @ManyToOne
-    @JoinColumn(name = "sId") // This is the foreign key column name
+    @JoinColumn(name = "cId", referencedColumnName = "cId")
+    private City city;
+
+    @ManyToOne
+    @JoinColumn(name = "uId", referencedColumnName = "uId")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "sId", referencedColumnName = "sId")
     private Sport sport;
 
     @Column(name = "gStatus")
@@ -47,31 +41,31 @@ public class Ground {
     public Ground() {
     }
 
-    // Getters and Setters
-    public Integer getGId() {
+    // Ground variable getters and setters
+    public Integer getgId() {
         return gId;
     }
 
-    public void setGId(Integer gId) {
+    public void setgId(Integer gId) {
         this.gId = gId;
     }
 
-    public String getGName() {
+    public String getgName() {
         return gName;
     }
 
-    public void setGName(String gName) {
+    public void setgName(String gName) {
         this.gName = gName;
     }
 
-    public String getGDescription() {
+    public String getgDescription() {
         return gDescription;
     }
 
-    public void setGDescription(String gDescription) {
+    public void setgDescription(String gDescription) {
         this.gDescription = gDescription;
     }
-
+    
     public String getAddress() {
         return address;
     }
@@ -80,43 +74,44 @@ public class Ground {
         this.address = address;
     }
 
-    public Integer getCId() {
-        return cId;
-    }
-
-    public void setCId(Integer cId) {
-        this.cId = cId;
-    }
-
-    public Integer getUId() {
-        return uId;
-    }
-
-    public void setUId(Integer uId) {
-        this.uId = uId;
-    }
-    
-    public Sport getSport() {
-        return sport;
-    }
-    
-    public void setSport(Sport sport) {
-        this.sport = sport;
-    }
-
-    public String getGStatus() {
+    public String getgStatus() {
         return gStatus;
     }
 
-    public void setGStatus(String gStatus) {
+    public void setgStatus(String gStatus) {
         this.gStatus = gStatus;
     }
 
-    public String getGImages() {
+    public String getgImages() {
         return gImages;
     }
 
-    public void setGImages(String gImages) {
+    public void setgImages(String gImages) {
         this.gImages = gImages;
+    }
+    
+    // Related entity getters and setters
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Sport getSport() {
+        return sport;
+    }
+
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 }

@@ -1,15 +1,7 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime; // For bDateTime
-import java.time.LocalTime;    // For timeFrom, timeTo
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking")
@@ -20,48 +12,36 @@ public class Booking {
     @Column(name = "bId")
     private Integer bId;
 
-    // Many-to-one relationship with User entity
     @ManyToOne
-    @JoinColumn(name = "uId", nullable = false) // Foreign key to User
+    @JoinColumn(name = "uId", referencedColumnName = "uId")
     private User user;
 
-    // Many-to-one relationship with Ground entity
     @ManyToOne
-    @JoinColumn(name = "gId", nullable = false) // Foreign key to Ground
+    @JoinColumn(name = "gId", referencedColumnName = "gId")
     private Ground ground;
 
-    @Column(name = "bDateTime", nullable = false)
-    private LocalDateTime bDateTime; // Date and time of booking
+    @Column(name = "bDateTime")
+    private LocalDateTime bDateTime;
 
-    @Column(name = "timeFrom", nullable = false)
-    private LocalTime timeFrom; // Start time of the booking slot
+    @Column(name = "timeFrom")
+    private String timeFrom;
 
-    @Column(name = "timeTo", nullable = false)
-    private LocalTime timeTo;   // End time of the booking slot
+    @Column(name = "timeTo")
+    private String timeTo;
 
-    @Column(name = "bAmt", nullable = false)
-    private Double bAmt; // Booking amount
+    @Column(name = "bAmt")
+    private double bAmt;
 
-    // Default constructor
     public Booking() {
     }
+    
+    // Getters and Setters for all fields
 
-    // Constructor with all fields (optional, but good for testing)
-    public Booking(User user, Ground ground, LocalDateTime bDateTime, LocalTime timeFrom, LocalTime timeTo, Double bAmt) {
-        this.user = user;
-        this.ground = ground;
-        this.bDateTime = bDateTime;
-        this.timeFrom = timeFrom;
-        this.timeTo = timeTo;
-        this.bAmt = bAmt;
-    }
-
-    // Getters and Setters
-    public Integer getBId() {
+    public Integer getbId() {
         return bId;
     }
 
-    public void setBId(Integer bId) {
+    public void setbId(Integer bId) {
         this.bId = bId;
     }
 
@@ -81,35 +61,35 @@ public class Booking {
         this.ground = ground;
     }
 
-    public LocalDateTime getBDateTime() {
+    public LocalDateTime getbDateTime() {
         return bDateTime;
     }
 
-    public void setBDateTime(LocalDateTime bDateTime) {
+    public void setbDateTime(LocalDateTime bDateTime) {
         this.bDateTime = bDateTime;
     }
 
-    public LocalTime getTimeFrom() {
+    public String getTimeFrom() {
         return timeFrom;
     }
 
-    public void setTimeFrom(LocalTime timeFrom) {
+    public void setTimeFrom(String timeFrom) {
         this.timeFrom = timeFrom;
     }
 
-    public LocalTime getTimeTo() {
+    public String getTimeTo() {
         return timeTo;
     }
 
-    public void setTimeTo(LocalTime timeTo) {
+    public void setTimeTo(String timeTo) {
         this.timeTo = timeTo;
     }
 
-    public Double getBAmt() {
+    public double getbAmt() {
         return bAmt;
     }
 
-    public void setBAmt(Double bAmt) {
+    public void setbAmt(double bAmt) {
         this.bAmt = bAmt;
     }
 }
