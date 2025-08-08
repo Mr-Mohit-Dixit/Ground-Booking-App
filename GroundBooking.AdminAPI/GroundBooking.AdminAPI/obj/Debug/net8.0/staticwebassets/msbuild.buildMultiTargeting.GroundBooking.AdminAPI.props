@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\GroundBooking.AdminAPI.props" />
+</Project>
