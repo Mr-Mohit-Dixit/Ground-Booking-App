@@ -3001,11 +3001,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Project_CDAC\\ReactAdminModule\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI.csproj",
+      "projectUniqueName": "E:\\Project_CDAC\\ReactAdminModule\\Ground-Booking-App\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI.csproj",
       "projectName": "GroundBooking.AdminAPI",
-      "projectPath": "E:\\Project_CDAC\\ReactAdminModule\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI.csproj",
+      "projectPath": "E:\\Project_CDAC\\ReactAdminModule\\Ground-Booking-App\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI.csproj",
       "packagesPath": "C:\\Users\\Raj\\.nuget\\packages\\",
-      "outputPath": "E:\\Project_CDAC\\ReactAdminModule\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI\\obj\\",
+      "outputPath": "E:\\Project_CDAC\\ReactAdminModule\\Ground-Booking-App\\GroundBooking.AdminAPI\\GroundBooking.AdminAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

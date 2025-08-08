@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GroundBooking.AdminAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4837f0ce3efc2ade24667fafb4624ae019655395")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80f393054a0ee89470e7e00adfc4a5b9beecd358")]
 [assembly: System.Reflection.AssemblyProductAttribute("GroundBooking.AdminAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GroundBooking.AdminAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
