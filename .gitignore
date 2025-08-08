@@ -129,3 +129,12 @@
 /GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Debug/net8.0/staticwebassets.build.json
 /GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/project.nuget.cache
 *.v2
+/GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Release/net8.0/GroundBooking.AdminAPI.assets.cache
+/GroundBooking.AdminAPI/GroundBooking.AdminAPI/obj/Release/net8.0/GroundBooking.AdminAPI.GeneratedMSBuildEditorConfig.editorconfig
+*.vsidx
+*.wsuo
+/.vs/MyProject/v17/DocumentLayout.json
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/slnx.sqlite-journal
+/.vs/VSWorkspaceState.json
