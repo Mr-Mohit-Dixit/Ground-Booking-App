@@ -54,9 +54,9 @@ const AdminPage = () => {
       {/* Sidebar + Main */}
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside className="w-64 bg-white border-r shadow-lg">
+        {/* <aside className="w-64 bg-white border-r shadow-lg">
           <AdminSidebar />
-        </aside>
+        </aside> */}
 
         {/* Main content */}
         <main className="flex-1 p-6 overflow-y-auto">
