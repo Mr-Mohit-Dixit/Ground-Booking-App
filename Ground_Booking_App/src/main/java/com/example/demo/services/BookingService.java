@@ -24,4 +24,8 @@ public class BookingService {
     public List<Booking> getBookingsByUserId(Integer userId) {
         return bookingRepository.findByUser_uId(userId);
     }
+    
+    public List<Booking> getBookingsByGroundOwnerId(Integer ownerId) {
+        return bookingRepository.findByGround_User_uId(ownerId);
+    }
 }

@@ -17,7 +17,7 @@ const PlayerNavbar = () => {
       <div className="player-navbar-links">
         <Link to="/playerHome" className="player-nav-link">Home</Link>
         <Link to="/myBookings" className="player-nav-link">My Bookings</Link>
-        <Link to="/profile" className="player-nav-link">Profile</Link>
+        <Link to="/edit-profile" className="player-nav-link">Profile</Link>
         <Link to="/" className="player-nav-link" onClick={handleLogout}>
             Logout
         </Link>

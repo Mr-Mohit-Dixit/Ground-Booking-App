@@ -26,7 +26,12 @@ public class Sport {
     public Sport() {
     }
 
-    public Sport(String sName, double sRate) {
+    public Sport(int sId) {
+		super();
+		this.sId = sId;
+	}
+
+	public Sport(String sName, double sRate) {
         this.sName = sName;
         this.sRate = sRate;
     }

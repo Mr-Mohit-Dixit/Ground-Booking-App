@@ -52,7 +52,12 @@ public class User {
     public User() {
     }
 
-    public User(Roles role, String uName, String uPhoneNo, String aadhar, String uAddress, City city, String email, String username, String passwords) {
+    public User(int uId) {
+		super();
+		this.uId = uId;
+	}
+
+	public User(Roles role, String uName, String uPhoneNo, String aadhar, String uAddress, City city, String email, String username, String passwords) {
         this.role = role;
         this.uName = uName;
         this.uPhoneNo = uPhoneNo;

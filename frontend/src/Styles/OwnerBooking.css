@@ -1,0 +1,79 @@
+/* src/Styles/OwnerBookings.css */
+
+.bookings-table-container {
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.bookings-table th,
+.bookings-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.bookings-table th {
+    background-color: #004d40;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.bookings-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.bookings-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .bookings-table thead {
+        display: none;
+    }
+    .bookings-table, .bookings-table tbody, .bookings-table tr, .bookings-table td {
+        display: block;
+        width: 100%;
+    }
+    .bookings-table tr {
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .bookings-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    .bookings-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        width: calc(50% - 2rem);
+        padding-right: 1rem;
+        white-space: nowrap;
+        font-weight: bold;
+        text-align: left;
+        color: #004d40;
+    }
+    
+    /* Adding data-labels for mobile view */
+    .bookings-table tr td:nth-of-type(1):before { content: "Booking ID"; }
+    .bookings-table tr td:nth-of-type(2):before { content: "Ground Name"; }
+    .bookings-table tr td:nth-of-type(3):before { content: "Booked By"; }
+    .bookings-table tr td:nth-of-type(4):before { content: "Date"; }
+    .bookings-table tr td:nth-of-type(5):before { content: "Time"; }
+    .bookings-table tr td:nth-of-type(6):before { content: "Amount"; }
+}

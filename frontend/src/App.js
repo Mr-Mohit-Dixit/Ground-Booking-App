@@ -5,11 +5,13 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import EditProfile from "./pages/EditProfile";
 import AdminPage from "./pages/AdminPage";
-import GroundOwnerPage from "./pages/GroundOwnerPage";
+import OwnerHome from "./pages/OwnerHome";
 import PlayerPage from "./pages/PlayerPage";
 import PlayerHome from "./pages/PlayerHome";
 import MyBookings from "./pages/MyBookings";
-import PlayerProfile from "./pages/PlayerProfile"; // Import the new Profile component
+import OwnerBookings from "./pages/OwnerBookings";
+import OwnerProfile from "./pages/OwnerProfile";
+import AddGround from "./pages/AddGround";
 
 const App = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -38,12 +40,14 @@ const App = () => {
           }
         />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/ground-owner" element={<GroundOwnerPage />} />
+        <Route path="/ownerHome" element={<OwnerHome />} />
         <Route path="/player" element={<PlayerPage />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/playerHome" element={<PlayerHome />} />
         <Route path="/myBookings" element={<MyBookings />} />
-        <Route path="/profile" element={<PlayerProfile />} /> {/* New route for Profile */}
+        <Route path="/ownerProfile" element={<OwnerProfile />} /> {/* New route for Profile */}
+        <Route path="/ownerBookings" element={<OwnerBookings />} /> {/* New route for Profile */}
+        <Route path="/addGround" element={<AddGround />} /> {/* New route for Profile */}
       </Routes>
     );
   };

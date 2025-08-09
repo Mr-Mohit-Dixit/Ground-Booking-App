@@ -19,11 +19,16 @@ public class City {
     @Column(name = "cname", nullable = false, unique = true)
     private String cName;
 
+    // Default constructor is required by JPA and deserialization libraries
     public City() {
     }
 
     public City(String cName) {
         this.cName = cName;
+    }
+    
+    public City(Integer cId) { 
+        this.cId = cId; 
     }
 
     public int getCId() {

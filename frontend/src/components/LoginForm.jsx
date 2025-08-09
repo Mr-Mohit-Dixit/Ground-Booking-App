@@ -64,7 +64,7 @@ const LoginForm = () => {
 
     } else if (response.data.role.rid === 2) {
 
-     navigate("/ground-owner");
+     navigate("/ownerHome");
 
     } else if (response.data.role.rid === 3) {
 

@@ -1,0 +1,155 @@
+/* src/Styles/OwnerHome.css */
+
+.owner-home-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.owner-home-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+/* Ground List and Cards */
+.grounds-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.ground-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* This is a crucial change: position relative to contain the dropdown */
+    position: relative; 
+}
+
+.ground-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ground-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.ground-details {
+    padding: 1.5rem;
+}
+
+.ground-details h3 {
+    margin: 0 0 0.5rem 0;
+    color: #004d40;
+}
+
+.ground-details p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    min-height: 60px;
+}
+
+.ground-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.ground-rate {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #00796b;
+}
+
+/* Dropdown Menu for Edit/Delete */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.three-dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.dot {
+    width: 4px;
+    height: 4px;
+    background-color: #333;
+    border-radius: 50%;
+}
+
+.dropdown-content {
+    display: none;
+    /* Crucial changes for positioning and layering */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    /* Ensures it appears on top */
+    z-index: 10; 
+    /* Position the dropdown at the top-right of the ground card */
+    top: 40px;
+    right: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-item {
+    color: black;
+    padding: 12px 12px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Messaging */
+.loading-message, .error-message, .no-grounds-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 5rem;
+}
+
+.error-message {
+    color: #d9534f;
+}
+
+.no-grounds-message a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
