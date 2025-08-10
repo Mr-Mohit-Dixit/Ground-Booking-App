@@ -3,14 +3,20 @@ import React, { useState } from "react";
 const Report = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const downloadReport = async () => {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://localhost:5091/api/admin/reports", {
-        method: "GET",
-      });
+      let url = "http://localhost:5091/api/admin/reports";
+
+      // Add query params if dates selected
+      if (startDate && endDate) {
+        url += `?startDate=${startDate}&endDate=${endDate}`;
+      }
+      const response = await fetch(url, { method: "GET" });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -18,7 +24,7 @@ const Report = () => {
 
       const blob = await response.blob();
       // Create download link for CSV file
-      const url = window.URL.createObjectURL(blob);
+      const downloadUrl = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
 
       // Extract filename from content-disposition header or fallback name
@@ -29,7 +35,7 @@ const Report = () => {
         if (match.length === 2) filename = match[1];
       }
 
-      a.href = url;
+      a.href = downloadUrl;
       a.download = filename;
       document.body.appendChild(a);
       a.click();
@@ -45,7 +51,27 @@ const Report = () => {
   return (
     <div className="container my-4">
       <h2 className="mb-4">Generate & Download Report</h2>
-
+      {/* Date range inputs */}
+      <div className="mb-3">
+        <label className="form-label">Start Date</label>
+        <input
+          type="date"
+          className="form-control"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+      </div>
+      <br />
+      <div className="mb-3">
+        <label className="form-label">End Date</label>
+        <input
+          type="date"
+          className="form-control"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+      </div>
+      <br />
       <button
         className="btn btn-primary"
         onClick={downloadReport}
