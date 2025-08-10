@@ -1,0 +1,179 @@
+/* Styles for the integrated navbar */
+.player-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #2c3e50; /* Dark blue-gray */
+    color: #ecf0f1; /* Light gray */
+}
+
+.player-navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.player-navbar-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.player-nav-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.player-nav-link:hover {
+    color: #3498db; /* Light blue */
+}
+
+/* -------------------------------------------------- */
+/* Styles for the home page content */
+/* -------------------------------------------------- */
+.player-home-container {
+    padding: 2rem;
+}
+
+.player-home-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #34495e; /* Dark blue */
+}
+
+/* -------------------------------------------------- */
+/* NEW STYLES FOR THE FILTER PANEL */
+/* -------------------------------------------------- */
+.filter-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f4f6f9; /* Lighter background for the filter section */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filter-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.filter-input,
+.filter-select {
+    width: 250px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    color: #333;
+    -webkit-appearance: none; /* Removes default dropdown arrow in Webkit browsers */
+    -moz-appearance: none; /* Removes default dropdown arrow in Firefox */
+    appearance: none; /* Removes default dropdown arrow */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%20165.7c-4.1%204.1-10.7%204.1-14.9%200L146.2%2049.2%2020.3%20165.7c-4.1%204.1-10.7%204.1-14.9%200-4.1-4.1-4.1-10.7%200-14.9l133.5-133.5c4.1-4.1%2010.7-4.1%2014.9%200l133.5%20133.5c4.1%204.1%204.1%2010.7%200%2014.9z%22%2F%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%20126.7c-4.1%204.1-10.7%204.1-14.9%200L146.2%2010.2%2020.3%20126.7c-4.1%204.1-10.7%204.1-14.9%200-4.1-4.1-4.1-10.7%200-14.9L133.5%201.5c4.1-4.1%2010.7-4.1%2014.9%200L287%20111.8c4.1%204.1%204.1%2010.7%200%2014.9z%22%2F%3E%3C%2Fsvg%3E');
+    background-size: 0.8rem;
+    background-position: calc(100% - 1rem) center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+    border-color: #3498db; /* Highlight border on focus */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3); /* Blue shadow on focus */
+    outline: none;
+}
+
+/* -------------------------------------------------- */
+/* Existing ground card and list styles (unchanged) */
+/* -------------------------------------------------- */
+.grounds-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.ground-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ground-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.ground-details {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.ground-details h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.ground-details p {
+    color: #7f8c8d;
+    flex-grow: 1;
+}
+
+.ground-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.booking-button {
+    background-color: #27ae60; /* Green */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.booking-button:hover {
+    background-color: #2ecc71;
+}
+
+.ground-rate {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3498db; /* Blue */
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2rem;
+}
+
+.error-message {
+    color: #c0392b; /* Red */
+}

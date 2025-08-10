@@ -1,0 +1,61 @@
+//package com.example.demo.services;
+//
+//import com.example.demo.entities.Booking;
+//import com.example.demo.repositories.BookingRepository;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//import java.util.List;
+//
+//@Service
+//public class BookingService {
+//
+//    @Autowired
+//    private BookingRepository bookingRepository;
+//
+//    public Booking saveBooking(Booking booking) {
+//        return bookingRepository.save(booking);
+//    }
+//
+//    public List<Booking> getAllBookings() {
+//        return bookingRepository.findAll();
+//    }
+//
+//    public List<Booking> getBookingsByUserId(Integer userId) {
+//        return bookingRepository.findByUser_uId(userId);
+//    }
+//}
+
+
+
+package com.example.demo.services;
+
+import com.example.demo.entities.Booking;
+import com.example.demo.repositories.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class BookingService {
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    // Save Booking
+    public Booking saveBooking(Booking booking) {
+        return bookingRepository.save(booking);
+    }
+
+    // Get all bookings
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
+
+    // Get bookings by User ID
+    public List<Booking> getBookingsByUserId(Integer userId) {
+        return bookingRepository.findByUser_uId(userId);
+    }
+}
+

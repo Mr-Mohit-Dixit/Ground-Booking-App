@@ -1,0 +1,138 @@
+/* Overall container for the booking form */
+.booking-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Ensures the form is vertically centered */
+    padding: 20px;
+    background-color: #f8f9fa; /* Lighter, clean background */
+    font-family: 'Inter', sans-serif; /* Professional font choice */
+}
+
+/* The booking card itself */
+.booking-card {
+    background: #ffffff; /* Pure white card background */
+    padding: 40px; /* Increased padding for more breathing room */
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Softer, more pronounced shadow */
+    max-width: 550px; /* Slightly wider card */
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't increase width */
+}
+
+/* Heading for the form */
+.booking-card h2 {
+    text-align: center;
+    margin-bottom: 30px; /* Increased margin */
+    color: #343a40; /* Darker, more professional text color */
+    font-size: 2.2rem; /* Larger heading */
+    font-weight: 700; /* Bolder font */
+}
+
+/* Paragraphs for ground details (Sport, Rate) */
+.booking-card p {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #6c757d; /* Muted gray for secondary text */
+    font-size: 1.1rem;
+}
+
+/* Individual form groups */
+.form-group {
+    margin-bottom: 20px; /* More spacing between form groups */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* More spacing for label */
+    font-weight: 600; /* Semi-bold label */
+    color: #495057; /* Slightly darker gray for labels */
+    font-size: 1rem;
+}
+
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 12px 15px; /* Increased padding */
+    border: 1px solid #ced4da; /* Subtle, clean border */
+    border-radius: 8px; /* Rounded input fields */
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #495057;
+    background-color: #fdfdfd; /* Slightly off-white background for inputs */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input[type="date"]:focus,
+.form-group select:focus {
+    border-color: #007bff; /* Primary blue on focus */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle blue glow on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Style for the total amount display */
+.form-group span {
+    display: block; /* Ensures it takes full width */
+    font-size: 1.25rem; /* Larger font for amount */
+    font-weight: bold;
+    color: #28a745; /* Green for amount */
+    text-align: right; /* Align amount to the right */
+    padding: 10px 0;
+}
+
+/* Submit button styling */
+.submit-button {
+    width: 100%;
+    padding: 15px; /* Larger padding for button */
+    background-color: #007bff; /* Primary blue */
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Rounded button */
+    font-size: 1.1rem; /* Slightly larger font */
+    font-weight: 600; /* Semi-bold */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for subtle hover */
+    letter-spacing: 0.5px; /* Slight letter spacing */
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.submit-button:active {
+    transform: translateY(0); /* Return to original position on click */
+}
+
+/* Messages (loading, error) */
+.loading-message,
+.error-message {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.error-message {
+    color: #dc3545; /* More vibrant red for error */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .booking-card {
+        padding: 25px;
+        margin: 0 10px; /* Add some side margin on small screens */
+    }
+
+    .booking-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .submit-button {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+}
