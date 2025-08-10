@@ -12,6 +12,7 @@ import MyBookings from "./pages/MyBookings";
 import OwnerBookings from "./pages/OwnerBookings";
 import OwnerProfile from "./pages/OwnerProfile";
 import AddGround from "./pages/AddGround";
+import EditGround from "./pages/EditGround";
 
 const App = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/ownerProfile" element={<OwnerProfile />} /> {/* New route for Profile */}
         <Route path="/ownerBookings" element={<OwnerBookings />} /> {/* New route for Profile */}
         <Route path="/addGround" element={<AddGround />} /> {/* New route for Profile */}
+        <Route path="/editGround/:groundId" element={<EditGround/>} /> 
       </Routes>
     );
   };

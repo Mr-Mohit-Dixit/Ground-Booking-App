@@ -100,4 +100,69 @@ public class GroundService {
     	
         return savedGround;
     }
+    
+    public Ground updateGround(Integer id, Ground updatedGround) {
+        // Step 1: Find the existing ground by its ID
+        return groundRepository.findById(id)
+            .map(existingGround -> {
+                // Step 2: Update the fields of the existing ground
+                existingGround.setgName(updatedGround.getgName());
+                existingGround.setgDescription(updatedGround.getgDescription());
+                existingGround.setAddress(updatedGround.getAddress());
+                
+                // Fetch and set the full entities for relationships
+                existingGround.setCity(cityRepository.findById(updatedGround.getCity().getCId())
+                            .orElseThrow(() -> new IllegalArgumentException("Invalid city ID")));
+                existingGround.setSport(sportRepository.findById(updatedGround.getSport().getSId())
+                            .orElseThrow(() -> new IllegalArgumentException("Invalid sport ID")));
+                
+                // Keep the original user and status, or update if necessary
+                existingGround.setgStatus(updatedGround.getgStatus());
+
+                // Step 3: Handle image update
+                String base64Image = updatedGround.getgImages();
+                // Check if a new image (as a Base64 string) was uploaded
+                if (base64Image != null && base64Image.contains(",")) {
+                    try {
+                        // Delete the old image file if it exists
+                        if (existingGround.getgImages() != null) {
+                            Path oldImagePath = Paths.get(uploadDir).resolve(existingGround.getgImages());
+                            Files.deleteIfExists(oldImagePath);
+                        }
+
+                        // Decode and save the new image
+                        String[] parts = base64Image.split(",");
+                        String mimeType = parts[0];
+                        String base64Data = parts[1];
+                        
+                        String fileExtension = ".jpg";
+                        if (mimeType.contains("image/png")) {
+                            fileExtension = ".png";
+                        } else if (mimeType.contains("image/jpeg")) {
+                            fileExtension = ".jpeg";
+                        }
+
+                        String newFileName = "GroundImage_" + id + fileExtension;
+                        
+                        Path uploadPath = Paths.get(uploadDir);
+                        if (!Files.exists(uploadPath)) {
+                            Files.createDirectories(uploadPath);
+                        }
+                        
+                        byte[] imageBytes = Base64.getDecoder().decode(base64Data);
+                        Path filePath = uploadPath.resolve(newFileName);
+                        Files.write(filePath, imageBytes);
+
+                        // Update the entity with the new filename
+                        existingGround.setgImages(newFileName);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Could not save new image file: " + e.getMessage(), e);
+                    }
+                }
+                
+                // Step 4: Save the updated ground entity
+                return groundRepository.save(existingGround);
+            })
+            .orElseThrow(() -> new RuntimeException("Ground with ID " + id + " not found."));
+    }
 }

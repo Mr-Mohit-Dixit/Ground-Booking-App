@@ -1,39 +1,38 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // 👈 Import useNavigate
 import OwnerNavbar from '../components/OwnerNavbar';
 import '../Styles/OwnerHome.css';
-import '../Styles/AddGround.css';
+import '../Styles/AddGround.css'; // You can reuse the styles from AddGround
 import { FaUpload } from 'react-icons/fa';
-import GroundUpload from '../assets/GroundUpload.png';
+import DefaultGroundImage from '../assets/default_ground.png';
 
-const AddGround = () => {
-    const navigate = useNavigate(); // 👈 Initialize the hook
+const EditGround = () => {
+    const { groundId } = useParams(); // Get the groundId from the URL
+    const navigate = useNavigate();
+    const fileInputRef = useRef(null);
 
-    // State to hold form data with nested objects for city, user, and sport
-    const [formData, setFormData] = useState({
-        gName: '',
-        gDescription: '',
-        address: '',
-        city: { cid: null },
-        user: { uid: parseInt(localStorage.getItem("loggeduserid"), 10) },
-        sport: { sid: null },
-        gStatus: 'Active',
-        gImages: null,
-    });
-
-    // States for fetching data from controllers
+    // State to hold the ground data, initially null until fetched
+    const [ground, setGround] = useState(null);
     const [cities, setCities] = useState([]);
     const [sports, setSports] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState({ text: '', type: '' });
-    const fileInputRef = useRef(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
-    // useEffect hook to fetch cities and sports data
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Fetch the specific ground details using the groundId from the URL
+                const groundResponse = await axios.get(`http://localhost:8080/api/grounds/getById/${groundId}`);
+                const fetchedGround = groundResponse.data;
+                setGround(fetchedGround);
+                
+                // Set the initial image preview. This assumes your backend serves images from http://localhost:8080/images
+                setImagePreview(fetchedGround.gImages ? `http://localhost:8080/images/${fetchedGround.gImages}` : DefaultGroundImage);
+
+                // Fetch cities and sports lists for the dropdowns
                 const citiesResponse = await axios.get("http://localhost:8080/api/cities/all");
                 setCities(citiesResponse.data);
 
@@ -43,79 +42,75 @@ const AddGround = () => {
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching data:", err);
-                setError("Failed to fetch cities or sports. Please check your backend.");
+                setError("Failed to fetch ground details or form data.");
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, []);
+    }, [groundId]); // Depend on groundId to refetch if it changes
 
-    // Handler for form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         
-        if (name === 'cid' || name === 'sid') {
-            const newId = value === '' ? null : parseInt(value, 10);
-            const parentKey = name === 'cid' ? 'city' : 'sport';
-            const idKey = name;
-
-            setFormData(prev => ({
-                ...prev,
-                [parentKey]: { [idKey]: newId }
-            }));
+        // Handle changes for nested objects like city and sport
+        if (name === 'cid') {
+            setGround(prev => ({ ...prev, city: { cid: parseInt(value, 10) } }));
+        } else if (name === 'sid') {
+            setGround(prev => ({ ...prev, sport: { sid: parseInt(value, 10) } }));
         } else {
-            setFormData(prev => ({ ...prev, [name]: value }));
+            // Handle changes for top-level fields
+            setGround(prev => ({ ...prev, [name]: value }));
         }
     };
 
-    // Handler for image upload
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setFormData(prev => ({ ...prev, gImages: reader.result }));
+                // Update the image preview
+                setImagePreview(reader.result);
+                // Store the Base64 string in state for upload
+                setGround(prev => ({ ...prev, gImages: reader.result }));
             };
             reader.readAsDataURL(file);
         }
     };
 
-    // Trigger the hidden file input
     const handleImageClick = () => {
         fileInputRef.current.click();
     };
 
-    // Handler for form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        if (!formData.gName || !formData.address || formData.sport.sid === null || formData.city.cid === null) {
-            setMessage({ text: "Please fill in all required fields and select a valid City and Sport.", type: 'error' });
+        // Basic validation
+        if (!ground.gName || !ground.address || !ground.city || !ground.sport) {
+            setMessage({ text: "Please fill in all required fields.", type: 'error' });
             return;
         }
 
-        console.log("Data being sent to the backend:", formData);
-
         try {
-            await axios.post("http://localhost:8080/api/grounds/add", formData);
+            // Send a PUT request to update the ground
+            const response = await axios.put(`http://localhost:8080/api/grounds/update/${groundId}`, ground);
             
-            // 👈 Show success alert and navigate
-            alert("Ground added successfully!"); // Use a simple alert for immediate feedback
-            navigate("/ownerHome"); // Navigate to the owner dashboard route
+            console.log("Ground updated successfully:", response.data);
+            alert("Ground updated successfully!");
+            navigate("/ownerHome"); // Navigate back to the dashboard
             
         } catch (err) {
-            console.error("Error adding ground:", err);
-            setMessage({ text: "Failed to add ground. Please check the console for details.", type: 'error' });
+            console.error("Error updating ground:", err);
+            setMessage({ text: "Failed to update ground. Please check the console.", type: 'error' });
         }
     };
 
     if (loading) {
-        return <div className="owner-home-container add-ground-container loading-message">Loading form data...</div>;
+        return <div className="owner-home-container loading-message">Loading ground data for editing...</div>;
     }
 
-    if (error) {
-        return <div className="owner-home-container add-ground-container error-message">{error}</div>;
+    if (error || !ground) {
+        return <div className="owner-home-container error-message">{error || "Ground not found."}</div>;
     }
 
     return (
@@ -123,7 +118,7 @@ const AddGround = () => {
             <OwnerNavbar />
             <div className="owner-home-container add-ground-container">
                 <div className="add-ground-card">
-                    <h2 className="add-ground-header">Add a New Ground</h2>
+                    <h2 className="add-ground-header">Edit Ground: {ground.gName}</h2>
                     {message.text && (
                         <div className={`message-box ${message.type}`}>
                             {message.text}
@@ -135,10 +130,10 @@ const AddGround = () => {
                         <div className="image-upload-section" onClick={handleImageClick}>
                             <div className="image-preview-wrapper">
                                 <img
-                                    src={formData.gImages || GroundUpload}
+                                    src={imagePreview}
                                     alt="Ground Preview"
                                     className="ground-image-preview"
-                                    onError={(e) => { e.target.onerror = null; e.target.src = GroundUpload; }}
+                                    onError={(e) => { e.target.onerror = null; e.target.src = DefaultGroundImage; }}
                                 />
                                 <div className="upload-icon-overlay">
                                     <FaUpload />
@@ -160,7 +155,7 @@ const AddGround = () => {
                                 <input
                                     type="text"
                                     name="gName"
-                                    value={formData.gName}
+                                    value={ground.gName || ''}
                                     onChange={handleChange}
                                     placeholder="e.g., Green Valley Turf"
                                     required
@@ -171,7 +166,7 @@ const AddGround = () => {
                                 <label>Ground Description:</label>
                                 <textarea
                                     name="gDescription"
-                                    value={formData.gDescription}
+                                    value={ground.gDescription || ''}
                                     onChange={handleChange}
                                     placeholder="Enter a brief description of the ground and its facilities."
                                     rows="4"
@@ -183,7 +178,7 @@ const AddGround = () => {
                                 <input
                                     type="text"
                                     name="address"
-                                    value={formData.address}
+                                    value={ground.address || ''}
                                     onChange={handleChange}
                                     placeholder="e.g., 123 Sports Avenue, City"
                                     required
@@ -195,13 +190,13 @@ const AddGround = () => {
                                 <label>Sport:</label>
                                 <select 
                                     name="sid"
-                                    value={String(formData.sport.sid || '')}
+                                    value={ground.sport?.sid || ''}
                                     onChange={handleChange} 
                                     required
                                 >
                                     <option value="">-- Select a Sport --</option>
                                     {sports.map(sport => (
-                                        <option key={sport.sid} value={String(sport.sid)}>{sport.sname}</option>
+                                        <option key={sport.sid} value={sport.sid}>{sport.sname}</option>
                                     ))}
                                 </select>
                             </div>
@@ -211,13 +206,13 @@ const AddGround = () => {
                                 <label>City:</label>
                                 <select 
                                     name="cid"
-                                    value={String(formData.city.cid || '')}
+                                    value={ground.city?.cid || ''}
                                     onChange={handleChange} 
                                     required
                                 >
                                     <option value="">-- Select a City --</option>
                                     {cities.map(city => (
-                                        <option key={city.cid} value={String(city.cid)}>{city.cname}</option>
+                                        <option key={city.cid} value={city.cid}>{city.cname}</option>
                                     ))}
                                 </select>
                             </div>
@@ -225,7 +220,7 @@ const AddGround = () => {
 
                         {/* Submit Button */}
                         <div className="form-actions">
-                            <button type="submit" className="add-ground-btn">Add Ground</button>
+                            <button type="submit" className="add-ground-btn">Update Ground</button>
                         </div>
                     </form>
                 </div>
@@ -234,4 +229,4 @@ const AddGround = () => {
     );
 };
 
-export default AddGround;
+export default EditGround;
